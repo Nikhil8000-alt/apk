@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - True for PC</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openAddModal()">+ Add New App</button>
+                <a href="index.html" class="btn btn-secondary">View Website</a>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Content -->
+    <div class="admin-content">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Top Rated Apps</h3>
+                <div class="stat-value" id="topRatedCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Latest Apps</h3>
+                <div class="stat-value" id="latestAppsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>PC Apps</h3>
+                <div class="stat-value" id="pcAppsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Game Apps</h3>
+                <div class="stat-value" id="gameAppsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Editing Apps</h3>
+                <div class="stat-value" id="editingAppsCount">0</div>
+            </div>
+        </div>
+
+        <!-- Top Rated Apps -->
+        <div class="cards-section">
+            <h2>Top Rated Apps</h2>
+            <div class="cards-grid" id="topRatedGrid">
+                <div class="empty-state">
+                    <p>No apps found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Apps -->
+        <div class="cards-section">
+            <h2>Latest Apps</h2>
+            <div class="cards-grid" id="latestAppsGrid">
+                <div class="empty-state">
+                    <p>No apps found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PC Apps -->
+        <div class="cards-section">
+            <h2>PC Apps</h2>
+            <div class="cards-grid" id="pcAppsGrid">
+                <div class="empty-state">
+                    <p>No apps found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Apps -->
+        <div class="cards-section">
+            <h2>Game Apps</h2>
+            <div class="cards-grid" id="gameAppsGrid">
+                <div class="empty-state">
+                    <p>No apps found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editing Apps -->
+        <div class="cards-section">
+            <h2>Editing Apps</h2>
+            <div class="cards-grid" id="editingAppsGrid">
+                <div class="empty-state">
+                    <p>No apps found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New App</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="appForm">
+                <input type="hidden" id="appId" name="appId">
+                <input type="hidden" id="appIndex" name="appIndex">
+                <input type="hidden" id="appSection" name="appSection">
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="appTitle">App Title *</label>
+                        <input type="text" id="appTitle" name="appTitle" required>
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="appCategory">Category *</label>
+                        <select id="appCategory" name="appCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="top-rated">Top Rated</option>
+                            <option value="latest">Latest</option>
+                            <option value="pc">PC</option>
+                            <option value="game">Game</option>
+                            <option value="editing">Editing</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="appVersion">Version</label>
+                        <input type="text" id="appVersion" name="appVersion">
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="appDate">Date *</label>
+                        <input type="date" id="appDate" name="appDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label for="appImage">App Icon/Image *</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="appImage" name="appImage" accept="image/*" onchange="previewImage(this, 'imagePreview')">
+                    </div>
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label for="appDescription">Description *</label>
+                    <textarea id="appDescription" name="appDescription" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label for="appDescriptionFull">Full Description (for Read More)</label>
+                    <textarea id="appDescriptionFull" name="appDescriptionFull" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="downloadLink">Download Link *</label>
+                        <input type="url" id="downloadLink" name="downloadLink" required>
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="telegramLink">Telegram Link</label>
+                        <input type="url" id="telegramLink" name="telegramLink">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="youtubeLink">YouTube Link</label>
+                        <input type="url" id="youtubeLink" name="youtubeLink">
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="videoLink">Video Link</label>
+                        <input type="url" id="videoLink" name="videoLink">
+                    </div>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label for="reportDetails">Report Details</label>
+                    <textarea id="reportDetails" name="reportDetails" rows="3" placeholder="Download links do not work, There is a new version, Others"></textarea>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label>Additional Images (3 images)</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="additionalImages" name="additionalImages" accept="image/*" multiple onchange="previewMultipleImages(this, 'additionalImagesPreview')">
+                    </div>
+                    <div id="additionalImagesPreview" class="image-preview"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="appSize">App Size</label>
+                        <input type="text" id="appSize" name="appSize" placeholder="e.g., 316 MB">
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="appRequirements">Requirements</label>
+                        <input type="text" id="appRequirements" name="appRequirements" placeholder="e.g., Windows 10 or higher">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-admin">
+                        <label for="appDownloads">Downloads Count</label>
+                        <input type="number" id="appDownloads" name="appDownloads" placeholder="e.g., 18299">
+                    </div>
+                    <div class="form-group-admin">
+                        <label for="appStore">Get it on</label>
+                        <input type="text" id="appStore" name="appStore" placeholder="e.g., Microsoft Store">
+                    </div>
+                </div>
+
+                <div class="form-group-admin full-width">
+                    <label for="appSubtitle">Subtitle (optional)</label>
+                    <input type="text" id="appSubtitle" name="appSubtitle">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save App</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+    
+    <!-- Firebase Configuration and Service -->
+    <script src="firebase-config.js"></script>
+    <script src="firebase-service.js"></script>
+    
+    <script src="admin.js"></script>
+</body>
+</html>
+
